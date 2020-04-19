@@ -1,6 +1,9 @@
 from datetime import datetime
+from django.db import connections
+from django.db.models import Sum
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.template.response import TemplateResponse
 import django_tables2 as tables
 from django.urls import reverse
 
@@ -11,8 +14,9 @@ from common.models import Building, Meter, Consumption, BuildingTable, MeterTabl
 def uploader(request):
     return render(request, "uploader.html")
 
-def visualize(request):
-    return render(request, "visualizer.html")
+def visualize(request, building_id):
+    args = {"building_id": building_id}
+    return TemplateResponse(request, "visualizer.html", args)
 
 def upload_building(request):
     csv = request.FILES["building_csv"]
@@ -84,7 +88,15 @@ def consumption_list(request, building_id, meter_id):
         "table": table
     })
 
-def electric_data(request):
-    return
-
+def kwh_data(request, building_id):
+    data = Consumption.objects.filter(
+        meter__building__id=building_id,
+        meter__unit="kWh"
+    ) \
+    .extra(
+        select={"day": "TO_CHAR(reading_date_time, 'YYYY-MM-DD')"}) \
+            .values("day") \
+            .annotate(consumption=Sum("consumption")) \
+            .order_by("day")
+    return JsonResponse(list(data), safe=False)
 

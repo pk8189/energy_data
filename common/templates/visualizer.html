@@ -50,8 +50,9 @@ var yAxis = d3.svg.axis()
     .orient("left");
 
 var line = d3.svg.line()
-    .x(function(d) { return x(d.month); })
-    .y(function(d) { return y(d.count_items); });
+    .interpolate("basis")
+    .x(function(d) { return x(d.day); })
+    .y(function(d) { return y(d.consumption); });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -59,14 +60,15 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("{% url "electric_data" %}", function(error, data) {
+
+d3.json("{% url "kwh_data" building_id=building_id %}", function(error, data) {
   data.forEach(function(d) {
-    d.month = parseDate(d.month);
-    d.count_items = +d.count_items;
+    d.day = parseDate(d.day);
+    d.consumption = +d.consumption;
   });
 
-  x.domain(d3.extent(data, function(d) { return d.month; }));
-  y.domain(d3.extent(data, function(d) { return d.count_items; }));
+  x.domain(d3.extent(data, function(d) { return d.day; }));
+  y.domain(d3.extent(data, function(d) { return d.consumption; }));
 
   svg.append("g")
       .attr("class", "x axis")
@@ -81,7 +83,7 @@ d3.json("{% url "electric_data" %}", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Play count");
+      .text("Consumption in kwH");
 
   svg.append("path")
       .datum(data)

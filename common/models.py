@@ -17,6 +17,7 @@ class Meter(models.Model):
     def get_absolute_url(self):
         return f"meter/{self.id}/"
 
+
 class Consumption(models.Model):
     consumption = models.FloatField(default=0)
     meter = models.ForeignKey(Meter, on_delete=models.CASCADE)
@@ -25,6 +26,7 @@ class Consumption(models.Model):
 
 class BuildingTable(tables.Table):
     id = tables.Column(linkify=True)
+    name = tables.Column(linkify={"viewname": "visualize", "args": [tables.A("id")]})
     class Meta:
         model = Building
 
@@ -37,4 +39,4 @@ class MeterTable(tables.Table):
 class ConsumptionTable(tables.Table):
     class Meta:
         model = Consumption
-        exclude = ["meter"]
+        exclude = ["meter", "id"]
