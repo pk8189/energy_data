@@ -14,4 +14,3 @@ class Consumption(models.Model):
     consumption = models.FloatField(default=0)
     meter = models.ForeignKey(Meter, on_delete=models.CASCADE)
     reading_date_time = models.DateTimeField()
-
