@@ -1,13 +1,18 @@
 from datetime import datetime
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+import django_tables2 as tables
 from django.urls import reverse
 
+
 from common.utils import check_upload_err, read_csv, dict_from_csv
-from common.models import Building, Meter, Consumption
+from common.models import Building, Meter, Consumption, BuildingTable, MeterTable, ConsumptionTable
 
 def uploader(request):
-    return render(request, 'uploader.html')
+    return render(request, "uploader.html")
+
+def visualize(request):
+    return render(request, "visualizer.html")
 
 def upload_building(request):
     csv = request.FILES["building_csv"]
@@ -48,3 +53,38 @@ def upload_consumption(request):
         new_consumption = Consumption(**entry)
         new_consumption.save()
     return HttpResponseRedirect(reverse("upload_page"))
+
+def building_list(request):
+    try:
+        sorter = request.GET["sort"]
+        table = BuildingTable(Building.objects.all().order_by(sorter))
+    except:
+        table = BuildingTable(Building.objects.all())
+    return render(request, "explorer.html", {
+        "table": table
+    })
+
+def meter_list(request, building_id):
+    try:
+        sorter = request.GET["sort"]
+        table = MeterTable(Meter.objects.filter(building_id=building_id).order_by(sorter))
+    except:
+        table = MeterTable(Meter.objects.filter(building_id=building_id))
+    return render(request, "explorer.html", {
+        "table": table
+    })
+
+def consumption_list(request, building_id, meter_id):
+    try:
+        sorter = request.GET["sort"]
+        table = ConsumptionTable(Consumption.objects.filter(meter_id=meter_id).order_by(sorter))
+    except:
+        table = ConsumptionTable(Consumption.objects.filter(meter_id=meter_id))
+    return render(request, "explorer.html", {
+        "table": table
+    })
+
+def electric_data(request):
+    return
+
+

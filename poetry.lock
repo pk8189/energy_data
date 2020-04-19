@@ -73,6 +73,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
+description = "Bootstrap support for Django projects"
+name = "django-bootstrap3"
+optional = false
+python-versions = "*"
+version = "12.0.3"
+
+[[package]]
+category = "main"
 description = "Extensions for Django"
 name = "django-extensions"
 optional = false
@@ -81,6 +89,20 @@ version = "2.2.9"
 
 [package.dependencies]
 six = ">=1.2"
+
+[[package]]
+category = "main"
+description = "Table/data-grid framework for Django"
+name = "django-tables2"
+optional = false
+python-versions = "*"
+version = "2.3.1"
+
+[package.dependencies]
+Django = ">=1.11"
+
+[package.extras]
+tablib = ["tablib"]
 
 [[package]]
 category = "main"
@@ -297,7 +319,7 @@ python-versions = "*"
 version = "1.11.2"
 
 [metadata]
-content-hash = "6946a87eb97b3a1b62a6c47a06a6d07d48d45b677f5b614a591c69f90566be73"
+content-hash = "bc6c353d830a83563061ea0e3a12f263da23c489dde5bb6ddbb95c547471e9e0"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -325,9 +347,17 @@ django = [
     {file = "Django-3.0.5-py3-none-any.whl", hash = "sha256:642d8eceab321ca743ae71e0f985ff8fdca59f07aab3a9fb362c617d23e33a76"},
     {file = "Django-3.0.5.tar.gz", hash = "sha256:d4666c2edefa38c5ede0ec1655424c56dc47ceb04b6d8d62a7eac09db89545c1"},
 ]
+django-bootstrap3 = [
+    {file = "django-bootstrap3-12.0.3.tar.gz", hash = "sha256:760f8664a15f9e1e6e0495265cebd3d4c65b1026e93e476e8322f10e1375f0b8"},
+    {file = "django_bootstrap3-12.0.3-py3-none-any.whl", hash = "sha256:d161d23824fc2f43c18449285961b994fc3fe620d782b13240e382a7b233344a"},
+]
 django-extensions = [
     {file = "django-extensions-2.2.9.tar.gz", hash = "sha256:2f81b618ba4d1b0e58603e25012e5c74f88a4b706e0022a3b21f24f0322a6ce6"},
     {file = "django_extensions-2.2.9-py2.py3-none-any.whl", hash = "sha256:b19182d101a441fe001c5753553a901e2ef3ff60e8fbbe38881eb4a61fdd17c4"},
+]
+django-tables2 = [
+    {file = "django-tables2-2.3.1.tar.gz", hash = "sha256:28da782f81f046c7d921246f43e7ba2df430cafe5a0e00a0f9dadef25a0e487d"},
+    {file = "django_tables2-2.3.1-py2.py3-none-any.whl", hash = "sha256:7e425ad51e22caf5470351981f0fcd4fd35d4cf2d4c3b76fa1b7bf56251778d1"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.11.0-py3-none-any.whl", hash = "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4"},

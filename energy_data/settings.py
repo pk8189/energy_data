@@ -41,6 +41,8 @@ CURRENT_LOCATION = "http://127.0.0.1:8000"
 INSTALLED_APPS = (
     "common",
     'rest_framework',
+    "django_tables2",
+    "bootstrap3",
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,3 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'energy_data.wsgi.application'
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap.html"
+
