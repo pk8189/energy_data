@@ -2,7 +2,7 @@
 
 ## Installation
 1. Setup [miniconda](https://docs.conda.io/en/latest/miniconda.html)
-2. Create a conda environment: `conda env create -n energy_data python=3.8`
+2. Create a conda environment: `conda create -n energy_data python=3.8`
 3. `conda activate energy_data`
 4. Setup [poetry](https://python-poetry.org)
 5. `poetry install` (run at same level as pyproject.toml and poetry.lock)
