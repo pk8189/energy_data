@@ -7,7 +7,6 @@ from django.template.response import TemplateResponse
 import django_tables2 as tables
 from django.urls import reverse
 
-
 from common.utils import check_upload_err, read_csv, dict_from_csv
 from common.models import Building, Meter, Consumption, BuildingTable, MeterTable, ConsumptionTable
 

@@ -34,10 +34,6 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 CURRENT_LOCATION = "http://127.0.0.1:8000" 
 
-#FILE_UPLOAD_HANDLERS = ["common.upload"]  #TODO set this
-#FILE_UPLOAD_TEMP_DIR = DATA_DIR
-
-
 INSTALLED_APPS = (
     "common",
     'rest_framework',
@@ -61,7 +57,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,4 +75,3 @@ TEMPLATES = [
 WSGI_APPLICATION = 'energy_data.wsgi.application'
 
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap.html"
-

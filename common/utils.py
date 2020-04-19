@@ -31,12 +31,3 @@ def dict_from_csv(lines, keys_to_find):
         if to_add:
             data.append(to_add)
     return data
-
-
-
-
-
-
-
-
-
