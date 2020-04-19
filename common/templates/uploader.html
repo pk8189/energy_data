@@ -14,9 +14,9 @@
 </br>
 </br>
 
-<form method="post" enctype="multipart/form-data" form action="{% url "upload_meter" %}" >
-  {% csrf_token %} Meter CSV upload: 
-  <input type="file" name="meter_csv">
+<form method="post" enctype="multipart/form-data" form action="{% url "upload_building" %}" >
+  {% csrf_token %} Building CSV upload: 
+  <input type="file" name="building_csv">
   <button type="submit">Upload</button>
 </form>
 

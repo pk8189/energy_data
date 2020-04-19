@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import connections
 from django.db.models import Sum
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
 from django.template.response import TemplateResponse
 import django_tables2 as tables
 from django.urls import reverse
@@ -19,7 +19,10 @@ def visualize(request, building_id):
     return TemplateResponse(request, "visualizer.html", args)
 
 def upload_building(request):
-    csv = request.FILES["building_csv"]
+    try:
+        csv = request.FILES["building_csv"]
+    except:
+        return HttpResponseBadRequest("No CSV in upload")
     check_upload_err(request, csv)
     keys_to_find = ["id", "name"]
     csv_lines = read_csv(csv, keys_to_find)
@@ -31,27 +34,39 @@ def upload_building(request):
     return HttpResponseRedirect(reverse("upload_page"))
 
 def upload_meter(request):
-    csv = request.FILES["meter_csv"]
+    try:
+        csv = request.FILES["meter_csv"]
+    except:
+        return HttpResponseBadRequest("No CSV in upload")
     check_upload_err(request, csv)
     keys_to_find = ["building_id", "id" ,"fuel" ,"unit"]
     csv_lines = read_csv(csv, keys_to_find)
     csv_data = dict_from_csv(csv_lines, keys_to_find)
     for entry in csv_data:
         entry["id"] = int(entry["id"])
-        entry["building"] = Building.objects.get(id=int(entry["building_id"]))
+        try:
+            entry["building"] = Building.objects.get(id=int(entry["building_id"]))
+        except:
+            return HttpResponseBadRequest("Unable to find matching building for meter. Data failed to upload")
         del entry["building_id"]
         new_meters = Meter(**entry)
         new_meters.save()
     return HttpResponseRedirect(reverse("upload_page"))
 
 def upload_consumption(request):
-    csv = request.FILES["consumption_csv"]
+    try:
+        csv = request.FILES["consumption_csv"]
+    except:
+        return HttpResponseBadRequest("No CSV in upload")
     check_upload_err(request, csv)
     keys_to_find = ["consumption", "meter_id", "reading_date_time"]
     csv_lines = read_csv(csv, keys_to_find)
     csv_data = dict_from_csv(csv_lines, keys_to_find)
     for entry in csv_data:
-        entry["meter"] = Meter.objects.get(id=int(entry["meter_id"]))
+        try:
+            entry["meter"] = Meter.objects.get(id=int(entry["meter_id"]))
+        except:
+            return HttpResponseBadRequest("Unable to find matching meter for consumption. Data failed to upload")
         datetime_obj = datetime.strptime(entry["reading_date_time"], "%Y-%m-%d %H:%M")
         entry["reading_date_time"] = datetime_obj
         new_consumption = Consumption(**entry)
