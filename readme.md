@@ -6,7 +6,8 @@
 3. `conda activate energy_data`
 4. Setup [poetry](https://python-poetry.org)
 5. `poetry install` (run at same level as pyproject.toml and poetry.lock)
-6. Initialize the database in PSQL shell:
+6. Run [postgres](https://www.postgresql.org) on standard port (5432)
+7. Initialize the database in PSQL shell:
 ```
 psql
 CREATE USER postgres SUPERUSER;
@@ -19,8 +20,8 @@ ALTER ROLE energydbuser SET timezone TO 'UTC';
 ALTER USER energydbuser CREATEDB;
 exit;
 ```
-7. `python manage.py migrate` (run at same level as manage.py)
-8. `python manage.py runserver` (run at same level as manage.py)
+8. `python manage.py migrate` (run at same level as manage.py)
+9. `python manage.py runserver` (run at same level as manage.py)
 
 ## App Description
 
@@ -59,3 +60,7 @@ The visualization pages show any given building's combined electricity and natur
 Click the `name` field on the explore page to see the visual.
 I decided that showing the kwH of each building would provide the most helpful visual because these example CSVs have no water data.
 ![Visual component](visual_component.png)
+
+
+### Other Notes:
+Tested on Mac OS Catalina 10.15.4
