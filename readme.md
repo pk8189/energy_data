@@ -26,7 +26,7 @@ exit;
 ## App Description
 
 ### Uploader Page:
-Use this page to upload the CSVs.
+Use this page to upload the CSVs. (see test_data dir)
 The CSVs must be imported in the following order:
 
 1. Buildings
@@ -58,7 +58,7 @@ This page displays all of a certain meter's consumption data.
 #### Visualization page
 The visualization pages show any given building's combined electricity and natural gas usage per day.
 Click the `name` field on the explore page to see the visual.
-I decided that showing the kwH of each building would provide the most helpful visual because these example CSVs have no water data.
+
 ![Visual component](visual_component.png)
 
 
